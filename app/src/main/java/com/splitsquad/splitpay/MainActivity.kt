@@ -27,7 +27,7 @@ import com.google.firebase.database.ValueEventListener
 
 import com.splitsquad.splitpay.databinding.ActivityMainBinding
 
-
+//use in onStart
 fun isUserAuthenticated(): Boolean {
     val firebaseAuth = FirebaseAuth.getInstance()
     return firebaseAuth.currentUser != null
@@ -36,33 +36,35 @@ fun isUserAuthenticated(): Boolean {
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+    //fire
     companion object {
         private const val MY_REQUEST_CODE = 7372007 // Any number you want
     }
 
+    //menu
     private lateinit var binding: ActivityMainBinding
 
 
+    //fire
     private lateinit var userInformation: DatabaseReference
     private lateinit var providers: List<IdpConfig>
 
 
+    //menu
     private lateinit var drawerLayout: DrawerLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        FirebaseApp.initializeApp(this)
+        FirebaseApp.initializeApp(this) //fire
         setContentView(R.layout.activity_main)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
 
-        // Initialize Firebase
-        userInformation = FirebaseDatabase.getInstance()
-            .getReference(com.splitsquad.splitpay.Utils.Common.USER_INFORMATION)
 
 
+        //fire
         // Initialize Providers
         listOf(
             EmailBuilder().build(),
@@ -91,12 +93,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, HomeFragment()).commit()
-            navigationView.setCheckedItem(R.id.nav_home)
-        }
+        //User auth or doesn't auth
+        if (isUserAuthenticated()) {
+            if (savedInstanceState == null) {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, HomeFragment()).commit()
+                navigationView.setCheckedItem(R.id.nav_home)
+            }
 
+        } else {
+            // Initialize Firebase
+            userInformation = FirebaseDatabase.getInstance()
+                .getReference(com.splitsquad.splitpay.Utils.Common.USER_INFORMATION)
+            showSignInOptions()
+        }
     }
 
     private fun showSignInOptions() {
@@ -108,6 +118,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             MY_REQUEST_CODE
         )
     }
+
 
     @Deprecated("This method has been deprecated in favor of using the Activity Result API\n      which brings increased type safety via an {@link ActivityResultContract} and the prebuilt\n      contracts for common intents available in\n      {@link androidx.activity.result.contract.ActivityResultContracts}, provides hooks for\n      testing, and allow receiving results in separate, testable classes independent from your\n      activity. Use\n      {@link #registerForActivityResult(ActivityResultContract, ActivityResultCallback)}\n      with the appropriate {@link ActivityResultContract} and handling the result in the\n      {@link ActivityResultCallback#onActivityResult(Object) callback}.")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
