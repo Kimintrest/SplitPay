@@ -8,9 +8,10 @@ android {
     namespace = "com.splitsquad.splitpay"
     compileSdk = 35
 
+
     defaultConfig {
         applicationId = "com.splitsquad.splitpay"
-        minSdk = 27
+        minSdk = 31
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -34,12 +35,18 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    viewBinding {
+        enable = true
+    }
 }
 
 dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-auth")
+
+    implementation("com.firebaseui:firebase-ui-auth:7.2.0")
 
     //implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -85,3 +92,4 @@ dependencies {
 //    implementation (libs.androidx.recyclerview.v132) // проверьте последнюю версию
 
 }
+apply(plugin = "com.google.gms.google-services")

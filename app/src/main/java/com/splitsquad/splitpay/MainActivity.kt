@@ -17,6 +17,7 @@ import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.AuthUI.IdpConfig
 import com.firebase.ui.auth.AuthUI.IdpConfig.*
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -24,16 +25,22 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-import com.splitsquad.splitpay.databinding.ActivityNavigationBinding
+import com.splitsquad.splitpay.databinding.ActivityMainBinding
 
 
+fun isUserAuthenticated(): Boolean {
+    val firebaseAuth = FirebaseAuth.getInstance()
+    return firebaseAuth.currentUser != null
+}
 
+
+@Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     companion object {
         private const val MY_REQUEST_CODE = 7372007 // Any number you want
     }
 
-    private lateinit var binding: MainActivityBinding
+    private lateinit var binding: ActivityMainBinding
 
 
     private lateinit var userInformation: DatabaseReference
@@ -45,10 +52,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        FirebaseApp.initializeApp(this)
         setContentView(R.layout.activity_main)
-        binding = ActivityNavigationBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setSupportActionBar(binding.appBarNavigation.toolbar)
 
 
         // Initialize Firebase
@@ -62,6 +69,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             GoogleBuilder().build()
         ).also { providers = it }
 
+
         //main
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.nav_view)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -71,7 +79,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 //com.splitsquad.splitpay.Utils
         drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
-
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
