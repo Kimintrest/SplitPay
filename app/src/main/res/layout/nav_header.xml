@@ -18,6 +18,7 @@
         android:textStyle="bold"/>
 
     <TextView
+        android:id="@+id/email_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/email"
@@ -31,8 +32,6 @@
         android:id="@+id/logView"
         android:contentDescription="@string/app_name"
         android:src="@drawable/colorsheader" />
-
-
 
 
 </LinearLayout>
