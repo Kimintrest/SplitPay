@@ -4,6 +4,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="name">Split Pay</string>
     <string name="email">example@splitpay.com</string>
+    <string name="btn">долг</string>
     <string name="default_web_client_id" translatable="false">firebase-adminsdk-fp08h@splitpaysplitergroup.iam.gserviceaccount.com</string>
 
 </resources>
