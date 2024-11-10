@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import com.splitsquad.splitpay.databinding.ActivityMainBinding
 
@@ -93,19 +94,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
+        if (savedInstanceState == null) {
         //User auth or doesn't auth
         if (isUserAuthenticated()) {
-            if (savedInstanceState == null) {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, HomeFragment()).commit()
                 navigationView.setCheckedItem(R.id.nav_home)
-            }
+
 
         } else {
             // Initialize Firebase
             userInformation = FirebaseDatabase.getInstance()
                 .getReference(com.splitsquad.splitpay.Utils.Common.USER_INFORMATION)
             showSignInOptions()
+        }
         }
     }
 
@@ -148,27 +150,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         }
 
-        fun onNavigationItemSelected(item: MenuItem): Boolean {
-            when (item.itemId) {
-                R.id.nav_home -> supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, HomeFragment()).commit()
-
-                R.id.nav_event -> supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, EventFragment()).commit()
-
-                R.id.nav_group -> supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, GroupFragment()).commit()
-
-                R.id.nav_search -> supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, SearchFragment()).commit()
-
-                R.id.nav_bill -> supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, BillFragment()).commit()
-            }
-            drawerLayout.closeDrawer(GravityCompat.START)
-            return true
-        }
-
         fun onBackPressed() {
             super.onBackPressed()
             if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -180,7 +161,24 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        TODO("Not yet implemented")
+        when (item.itemId) {
+            R.id.nav_home -> supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, HomeFragment()).commit()
+
+            R.id.nav_event -> supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, EventFragment()).commit()
+
+            R.id.nav_group -> supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, GroupFragment()).commit()
+
+            R.id.nav_search -> supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, SearchFragment()).commit()
+
+            R.id.nav_bill -> supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, BillFragment()).commit()
+        }
+        drawerLayout.closeDrawer(GravityCompat.START)
+        return true
     }
 
 }

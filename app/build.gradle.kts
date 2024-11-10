@@ -46,7 +46,15 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-auth")
 
-    implementation("com.firebaseui:firebase-ui-auth:7.2.0")
+    implementation ("com.github.mancj:MaterialSearchBar:X.X.X")
+
+    implementation("com.firebaseui:firebase-ui-auth:8.0.2")
+    implementation("io.ktor:ktor-server-netty: ")
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.okhttp)
+    implementation(libs.ktor.client.core)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
 
     //implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
