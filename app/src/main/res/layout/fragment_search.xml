@@ -8,12 +8,10 @@
 
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="SearchFragment"
-        android:textSize="30sp"
-        android:layout_centerInParent="true"
-        android:textColor="@color/x"/>
+
+    <SearchView
+        android:layout_width="260dp"
+        android:layout_height="50dp"
+        android:autofillHints="name"/>
 
 </RelativeLayout>
