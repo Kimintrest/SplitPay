@@ -9,6 +9,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.compose.runtime.Composable
 import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -17,6 +18,7 @@ import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.AuthUI.IdpConfig
 import com.firebase.ui.auth.AuthUI.IdpConfig.*
 import com.google.android.material.navigation.NavigationView
+import com.google.errorprone.annotations.Modifier
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -27,6 +29,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import com.splitsquad.splitpay.databinding.ActivityMainBinding
+import org.w3c.dom.Text
 
 //use in onStart
 fun isUserAuthenticated(): Boolean {
@@ -182,3 +185,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
 }
+
+//@Composable
+//fun MainScreen(name: String, modifier: Modifier = Modifier) {
+//    Column(
+//        modifier = Modifier.fillMaxsize(),
+//        verticalArrangement = Arrangement.SpaceBetween
+//    ) {
+//
+//    }
+//    Text(
+//        text = "Hello $name!",
+//        modifier = modifier
+//    )
+//}
